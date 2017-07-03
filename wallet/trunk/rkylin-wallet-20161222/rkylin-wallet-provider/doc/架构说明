@@ -1,0 +1,46 @@
+项目结构：
+
+rkylin-supom 公共父类，管理jar包版本，私服地址等
+
+   rkylin-example  父项目,管理共用jar包，插件，打包配置信息
+ 
+        api:  提供对外的dubbo接口暴露
+        provider: 具体业务实现,可以提供dubbo服务+提供给web项目数据
+        util:自己项目工具类
+        web: 项目web工程:可以引用provider,也可以通过调用provider发布的dubbo接口
+        
+架构技术：
+        项目构建:maven
+       maven模块分层，jar包管理，采用profile方式注入不能的资源文件
+        代码管理:svn
+        持续集成:jenkins
+                测试,uat,线上等环境采用jenkis持续集成
+        业务层：    
+      spring : bean管理，注解事务
+      myibats: 接口编程+xml
+      database:mysql+druid
+      cache:redis
+      log:logback
+       分布式调用:zookeeper+dubbo
+        消息通讯: zookeeper+activemq
+   
+   web项目:
+      springmvc
+      
+      
+    
+    架构分析:
+     provider: 项目的业务实现模块,需要提供对外dubbo接口，需要提供给web项目用
+     
+     分三种情况：
+     1.调provider的所有接口都发布成dubbo服务，分成两个api模块，一个给web项目引用，一个给外部项目引用,外部项目与web项目都通过dubbo服务进行调用
+     
+     2.拆分成两个provider,一个对外，另一个做为jar包导入web项目，提供本地调用
+     
+     3.共用一个provider项目，提供一个api对外，web项目本地调用，引用provider jar包就行，不发布dubbo服务，外部调用 provider dubbo
+     
+     
+     
+         
+   
+   

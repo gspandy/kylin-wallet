@@ -1,0 +1,87 @@
+/**
+ * <p>Title: ${file_name}</p>
+ * <p>Description:${project_name} </p>
+ * <p>Copyright:${date} </p>
+ * <p>Company: rongshu</p>
+ * <p>author: ${user}</p>
+ * <p>package: ${package_name}</p>
+ * @version v1.0.0
+ */
+package com.rongcapital.wallet.dao;
+
+import com.rongcapital.wallet.po.CompanyInfo;
+import com.rongcapital.wallet.po.CompanyInfoExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+/**
+ * Description:
+ * @author: Administrator
+ * @CreateDate: 2016-9-1
+ * @version: V1.0
+ */
+public interface CompanyInfoMapper {
+    int countByExample(CompanyInfoExample example);
+
+    int deleteByExample(CompanyInfoExample example);
+
+    /**
+     * Discription:
+     *
+     * @param id* @return int ${return_type}
+     * @author Administrator
+     * @since 2016-9-1
+     */
+    int deleteByPrimaryKey(Long id);
+
+    /**
+     * Discription:
+     *
+     * @param record* @return int ${return_type}
+     * @author Administrator
+     * @since 2016-9-1
+     */
+    int insert(CompanyInfo record);
+
+    /**
+     * Discription:
+     *
+     * @param record* @return int ${return_type}
+     * @author Administrator
+     * @since 2016-9-1
+     */
+    int insertSelective(CompanyInfo record);
+
+    List<CompanyInfo> selectByExample(CompanyInfoExample example);
+
+    /**
+     * Discription:
+     *
+     * @param id* @return com.rongcapital.wallet.po.CompanyInfo ${return_type}
+     * @author Administrator
+     * @since 2016-9-1
+     */
+    CompanyInfo selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") CompanyInfo record, @Param("example") CompanyInfoExample example);
+
+    int updateByExample(@Param("record") CompanyInfo record, @Param("example") CompanyInfoExample example);
+
+    /**
+     * Discription:
+     *
+     * @param record* @return int ${return_type}
+     * @author Administrator
+     * @since 2016-9-1
+     */
+    int updateByPrimaryKeySelective(CompanyInfo record);
+
+    /**
+     * Discription:
+     *
+     * @param record* @return int ${return_type}
+     * @author Administrator
+     * @since 2016-9-1
+     */
+    int updateByPrimaryKey(CompanyInfo record);
+}

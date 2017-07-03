@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd  
+        ">
+	
+	
+	<dubbo:application name="${wallet.dubbo.application.name}" owner="yanglei" />
+	<dubbo:protocol name="${wallet.dubbo.protocol.name}" port="${wallet.dubbo.protocol.port}" />
+	<dubbo:registry file="wallet.provider.cache" address="${wallet.dubbo.registry.address}" check="true" />
+	<dubbo:consumer timeout="120000" check="false" />
+	
+
+
+
+
+</beans>

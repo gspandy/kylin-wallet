@@ -1,0 +1,18 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+   <!-- provider需要对外发布的dubbo服务 -->
+   <!--  ref指实现类的bean,当前口有多个实现类的时候，可以通过group来区分 -->
+	<!-- 用户信息 -->
+	<dubbo:service interface="com.rongcapital.wallet.api.service.UserInfoApiService" ref="userInfoApiService" version="1.0.0"/>
+
+    <dubbo:service interface="com.rongcapital.wallet.api.service.LoginAipService" ref="loginAipService" version="1.0.0"/>
+    
+    
+    <dubbo:service interface="com.rongcapital.wallet.api.service.TokenApiService" ref="tokenApiService" version="1.0.0"/>
+ 	
+</beans>

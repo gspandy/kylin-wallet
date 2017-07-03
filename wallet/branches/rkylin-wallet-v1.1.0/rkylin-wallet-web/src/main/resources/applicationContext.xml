@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/context  
+	http://www.springframework.org/schema/context/spring-context.xsd  
+	http://www.springframework.org/schema/beans  
+	http://www.springframework.org/schema/beans/spring-beans.xsd  
+	http://www.springframework.org/schema/tx  
+	http://www.springframework.org/schema/tx/spring-tx.xsd  
+	http://www.springframework.org/schema/jdbc  
+	http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd  
+	http://www.springframework.org/schema/cache  
+	http://www.springframework.org/schema/cache/spring-cache-3.1.xsd  
+	http://www.springframework.org/schema/aop  
+	http://www.springframework.org/schema/aop/spring-aop.xsd  
+	http://www.springframework.org/schema/util  
+	http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	
+	<context:component-scan base-package="com.rongcapital.wallet">
+		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
+	</context:component-scan>
+	<!-- 强制使用cglib的动态代理 打开aop 注解 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>			  
+				<value>classpath:dubbo.properties</value>
+				<value>classpath:common.properties</value>
+				<value>classpath:conf/redis.properties</value>										
+			</list>
+
+		</property>
+	</bean>
+	 <import resource="classpath:web-dubbo-config.xml" />
+	<import resource="classpath:spring-servlet.xml"/>
+	<import resource="classpath:spring-bean.xml"/>
+	<import resource="classpath:redis-sdr-config.xml" />
+	 <import resource="classpath:wallet-dubbo-consumer.xml" />
+	 <import resource="classpath:account-dubbo-consumer.xml" />
+	 <import resource="classpath:pwd-dubbo-consumer.xml" /> 
+	 
+	  <!-- rop -->
+	 <import resource="classpath:spring-rop-properties.xml" />
+	<import resource="classpath:spring-rop.xml" />
+</beans>

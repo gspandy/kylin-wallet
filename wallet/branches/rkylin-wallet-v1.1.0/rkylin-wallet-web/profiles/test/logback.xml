@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="LOG_HOME" value="${catalina.base}/logs/rkylin-wallet-web/" />
+
+	<!-- 控制台输出 -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- error -->
+	<appender name="globalError"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>  <!-- 只记录error级别的日志 -->
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<append>true</append>
+		<file>${LOG_HOME}/global/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/global/error.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<MaxHistory>30</MaxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %C{56} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+
+
+
+	<!-- wallet-web -->
+	<appender name="wallet-web"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<append>true</append>
+		<file>${LOG_HOME}/wallet-web.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/rkylin-wallet-web/wallet-web.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %C{56} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 记录指定包边的日志,按模块记录日期 -->
+	<logger name="com.rongcapital.wallet" level="${logback.level}"
+		additivity="true">
+		<appender-ref ref="wallet-web" />
+	</logger>
+
+
+	<!-- 批量注册日志 -->
+	<appender name="FILE-BATHREGISTER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/bathregister/rkylin-wallet-web-bathregister.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>300MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <file>${LOG_HOME}/bathregister/rkylin-wallet-web-bathregister.log</file>
+        <append>true</append>
+        <encoder charset="UTF-8">
+            <!-- %-40(%-35logger{35}:%-4line) -->
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}]--[%thread]--[%-5level]--[%logger{30}]--[%msg]%n</Pattern>
+        </encoder>
+    </appender>
+
+     <logger name="com.rongcapital.wallet.controller.temp" level="info" additivity="false">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="FILE-BATHREGISTER"/>
+    </logger>
+   
+	<logger name="com.alibaba.dubbo" level="info" additivity="false">
+		<appender-ref ref="wallet-web" />
+	</logger>
+	<logger name="org.springframework" level="info" additivity="false">
+		<appender-ref ref="wallet-web" />
+	</logger>
+
+	
+
+	<root level="${logback.level}">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="globalError" />
+	</root>
+
+</configuration>

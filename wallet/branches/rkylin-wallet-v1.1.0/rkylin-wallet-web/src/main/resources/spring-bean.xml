@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="   
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+
+
+
+	<bean id="accountDubbo" class="com.rongcapital.wallet.dubbo.AccountDubbo" />
+
+	<bean id="bankCardDubbo" class="com.rongcapital.wallet.dubbo.BankCardDubbo" />
+
+
+	<bean id="redisIdGeneratorExt" class="com.rongcapital.wallet.util.RedisIdGeneratorExt" />
+
+	<!-- 全局异常处理 -->
+	<bean id="exceptionHandler" class="com.rongcapital.wallet.exception.ExceptionHandler" />
+
+	<!-- 异步日志 -->
+	<bean id="sendPoolService" class="com.rongcapital.wallet.threads.SendPoolService" />
+
+	<bean id="smsTempletProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location">
+			<value>classpath:smsTemplet.properties</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="loginFilter" class="com.rongcapital.wallet.filter.LoginFilter"></bean>
+</beans>        
